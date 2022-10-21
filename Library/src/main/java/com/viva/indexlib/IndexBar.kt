@@ -56,7 +56,7 @@ class IndexBar @JvmOverloads constructor(
     private var mDataHelper: IIndexBarDataHelper
 
     /**
-     * 用于特写显示正在被触摸的index值
+     * 用于特写显示正在被触摸的index
      */
     private var mPressedShowTextView: AppCompatTextView? = null
 
