@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never" />
+
+    <com.viva.indexlib.IndexBar
+        android:id="@+id/contactIndexBar"
+        android:layout_width="20dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|end"
+        android:layout_marginVertical="70dp"
+        android:layout_marginEnd="10dp"
+        android:paddingVertical="3dp"
+        app:indexBarTextSize="11sp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/contactTvSideBarHint"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/index_bar_text_bg"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:visibility="gone" />
+</FrameLayout>
