@@ -103,6 +103,7 @@ class IndexBarDataHelperImpl : IIndexBarDataHelper {
         if (sourceDate.isEmpty()) {
             return this
         }
+        dates.clear()
         //按数据源来 此时sourceData已经有序
         val size = sourceDate.size
         var baseIndexTag: String
