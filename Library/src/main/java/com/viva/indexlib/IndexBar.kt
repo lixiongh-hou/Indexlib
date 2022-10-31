@@ -123,9 +123,7 @@ class IndexBar @JvmOverloads constructor(
 
                 mLayoutManager?.let {
                     val position = getPosByTag(text)
-                    if (position != 1) {
-                        it.scrollToPositionWithOffset(position, 0)
-                    }
+                    it.scrollToPositionWithOffset(position, 0)
                 }
             }
 
