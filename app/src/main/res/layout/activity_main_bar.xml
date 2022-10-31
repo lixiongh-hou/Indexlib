@@ -13,11 +13,12 @@
     <com.viva.indexlib.IndexBar
         android:id="@+id/contactIndexBar"
         android:layout_width="20dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|end"
-        android:layout_marginVertical="70dp"
         android:layout_marginEnd="10dp"
+        android:background="#EDEDED"
         android:paddingVertical="3dp"
+        app:indexBarPadding="5dp"
         app:indexBarTextSize="11sp" />
 
     <androidx.appcompat.widget.AppCompatTextView

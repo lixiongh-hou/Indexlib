@@ -43,6 +43,11 @@ class IndexBar @JvmOverloads constructor(
     private var mHeight = 0
 
     /**
+     * 每个index的边距
+     */
+    private var indexBarPadding = 0F
+
+    /**
      * 每个index区域的高度
      */
     private var mGapHeight = 0
@@ -106,6 +111,11 @@ class IndexBar @JvmOverloads constructor(
             if (attr == R.styleable.IndexBar_indexBarTextSize) {
                 textSize = typedArray.getDimensionPixelSize(attr, textSize.toInt()).toFloat()
             }
+
+            if (attr == R.styleable.IndexBar_indexBarPadding) {
+                indexBarPadding =
+                    typedArray.getDimensionPixelSize(attr, indexBarPadding.toInt()).toFloat()
+            }
         }
         typedArray.recycle()
 
@@ -167,14 +177,14 @@ class IndexBar @JvmOverloads constructor(
         }
 
         //得到合适的高度：
+        val a = (mIndexDataList.size * indexBarPadding).toInt()
         when (hMode) {
             MeasureSpec.EXACTLY -> measureHeight = hSize
             MeasureSpec.AT_MOST -> measureHeight =
-                measureHeight.coerceAtMost(hSize) //wSize此时是父控件能给子View分配的最大空间
+                (measureHeight.coerceAtMost(hSize)) + a //wSize此时是父控件能给子View分配的最大空间
             MeasureSpec.UNSPECIFIED -> {
             }
         }
-
         setMeasuredDimension(measureWidth, measureHeight)
 
     }

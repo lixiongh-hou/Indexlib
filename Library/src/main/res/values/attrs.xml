@@ -33,6 +33,7 @@
 
     <declare-styleable name="IndexBar">
         <attr name="indexBarTextSize" format="dimension" />
+        <attr name="indexBarPadding" format="dimension" />
     </declare-styleable>
 
     <array name="slide_bar_value_list">
