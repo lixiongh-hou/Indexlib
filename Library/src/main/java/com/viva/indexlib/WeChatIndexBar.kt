@@ -496,7 +496,7 @@ class WeChatIndexBar @JvmOverloads constructor(
      * @param tag
      * @return
      */
-    private fun getPosByTag(tag: String): Int {
+    fun getPosByTag(tag: String): Int {
         // 解决源数据为空 或者size为0的情况,
         if (null == mSourceDates || mSourceDates!!.isEmpty()) {
             return -1

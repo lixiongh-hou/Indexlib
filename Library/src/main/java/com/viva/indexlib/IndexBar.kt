@@ -320,7 +320,7 @@ class IndexBar @JvmOverloads constructor(
         mGapHeight = (mHeight - paddingTop - paddingBottom) / mIndexDataList.size
     }
 
-    private fun getPosByTag(tag: String): Int {
+    fun getPosByTag(tag: String): Int {
         // 解决源数据为空 或者size为0的情况,
         if (mSourceDataList.isEmpty()) {
             return -1
