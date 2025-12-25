@@ -16,6 +16,7 @@ import com.viva.indexlib.indexBar.BaseIndexPinyinBean
 import com.viva.indexlib.indexBar.IndexBarDataHelperImpl
 import com.viva.indexlib.suspension.IIndexBarDataHelper
 import kotlin.collections.ArrayList
+import androidx.core.graphics.toColorInt
 
 /**
  * @author 李雄厚
@@ -54,6 +55,26 @@ class IndexBar @JvmOverloads constructor(
 
     private val mPaint by lazy { Paint() }
     private val indexBounds by lazy { Rect() }
+
+    /**
+     * 选中的下标
+     */
+    private var mLastIndex = -1
+
+    /**
+     * 未选中的字体颜色
+     */
+    private var normalColor = "#000000".toColorInt()
+
+    /**
+     * 选中的字体颜色
+     */
+    private var selectColor = "#FF0000".toColorInt()
+
+    /**
+     * 抬起是否取消选中字体颜色
+     */
+    private var upClearSelectColor = false
 
     /**
      * 汉语->拼音，拼音->tag
@@ -116,6 +137,18 @@ class IndexBar @JvmOverloads constructor(
                 indexBarPadding =
                     typedArray.getDimensionPixelSize(attr, indexBarPadding.toInt()).toFloat()
             }
+            if (attr == R.styleable.IndexBar_indexBarSelectColor) {
+                selectColor =
+                    typedArray.getColor(attr, selectColor)
+            }
+            if (attr == R.styleable.IndexBar_indexBarNormalColor) {
+                normalColor =
+                    typedArray.getColor(attr, normalColor)
+            }
+            if (attr == R.styleable.IndexBar_indexBarUpClearSelectColor) {
+                upClearSelectColor =
+                    typedArray.getBoolean(attr, upClearSelectColor)
+            }
         }
         typedArray.recycle()
 
@@ -124,10 +157,11 @@ class IndexBar @JvmOverloads constructor(
         mPaint.isAntiAlias = true
         mPaint.isFakeBoldText = true
         mPaint.textSize = textSize
-        mPaint.color = Color.parseColor("#000000")
+        mPaint.color = normalColor
 
         setOnIndexPressedListener {
-            onIndexPressed { _, text ->
+            onIndexPressed { index, text ->
+                mLastIndex = index
                 mPressedShowTextView?.isVisible = true
                 mPressedShowTextView?.text = text
 
@@ -135,9 +169,14 @@ class IndexBar @JvmOverloads constructor(
                     val position = getPosByTag(text)
                     it.scrollToPositionWithOffset(position, 0)
                 }
+                invalidate()
             }
 
             onMotionEventEnd {
+                if (upClearSelectColor) {
+                    mLastIndex = -1
+                    invalidate()
+                }
                 mPressedShowTextView?.isVisible = false
             }
         }
@@ -199,11 +238,15 @@ class IndexBar @JvmOverloads constructor(
             //计算出在每格index区域，竖直居中的baseLine值
             val baseline = ((mGapHeight - fontMetrics.bottom - fontMetrics.top) / 2).toInt()
             //调用drawText，居中显示绘制index
+            if (i == mLastIndex) {
+                mPaint.color = selectColor
+            } else {
+                mPaint.color = normalColor
+            }
             canvas?.drawText(
                 index, mWidth / 2 - mPaint.measureText(index) / 2,
                 (t + mGapHeight * i + baseline).toFloat(), mPaint
             )
-
         }
     }
 
@@ -226,6 +269,7 @@ class IndexBar @JvmOverloads constructor(
                     mOnIndexPressedListener?.onIndexPressed(pressI, mIndexDataList[pressI])
                 }
             }
+
             MotionEvent.ACTION_UP -> {
                 //回调监听器
                 mOnIndexPressedListener?.onMotionEventEnd()

@@ -19,7 +19,10 @@
         android:background="#EDEDED"
         android:paddingVertical="3dp"
         app:indexBarPadding="5dp"
-        app:indexBarTextSize="11sp" />
+        app:indexBarTextSize="11sp"
+        app:indexBarUpClearSelectColor="true"
+        app:indexBarSelectColor="#FF005EFF"
+        app:indexBarNormalColor="#FFAAAAAA"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/contactTvSideBarHint"

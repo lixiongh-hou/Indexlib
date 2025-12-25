@@ -34,6 +34,9 @@
     <declare-styleable name="IndexBar">
         <attr name="indexBarTextSize" format="dimension" />
         <attr name="indexBarPadding" format="dimension" />
+        <attr name="indexBarSelectColor" format="color" />
+        <attr name="indexBarNormalColor" format="color" />
+        <attr name="indexBarUpClearSelectColor" format="boolean" />
     </declare-styleable>
 
     <array name="slide_bar_value_list">
