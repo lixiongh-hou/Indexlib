@@ -1,8 +1,10 @@
 package com.viva.indexlib.indexBar
 
+import android.util.Log
 import com.github.promeg.pinyinhelper.Pinyin
 import com.viva.indexlib.suspension.IIndexBarDataHelper
 import java.util.Collections.sort
+import java.util.Locale
 
 /**
  * @author 李雄厚
@@ -35,7 +37,8 @@ class IndexBarDataHelperImpl : IIndexBarDataHelper {
 //                    //如果c不是汉字，则返回String.valueOf(c)
 //                    pySb.append(Pinyin.toPinyin(target[i1]).uppercase(Locale.ROOT))
 //                }
-                indexPinyinBean.setBaseIndexPinyin(Pinyin.toPinyin(target, ""))//设置城市名全拼音
+                //转换成大写字母，如果存在小写字母也进行转换，不然小写字母会被归类到#里面
+                indexPinyinBean.setBaseIndexPinyin(Pinyin.toPinyin(target.uppercase(Locale.ROOT), ""))//设置城市名全拼音
             }
         }
         return this
@@ -57,7 +60,7 @@ class IndexBarDataHelperImpl : IIndexBarDataHelper {
             val indexPinyinBean = data[i]
             if (indexPinyinBean.isNeedToPinyin()) {
                 //以下代码设置城市拼音首字母
-                val tagString = indexPinyinBean.baseIndexPinyin.substring(0, 1)
+                val tagString = indexPinyinBean.baseIndexPinyin[0].toString()
                 if (tagString.matches("[A-Z]".toRegex())) {//如果是A-Z字母开头
                     indexPinyinBean.setBaseIndexTag(tagString)
                 } else {//特殊字母这里统一用#处理

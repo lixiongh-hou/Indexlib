@@ -6,6 +6,9 @@ package com.viva.chek
  *
  */
 val surname = mutableListOf(
+    "a,dfawefw",
+    "dfawefw",
+    "$$$",
     "赵",
     "钱",
     "孙",
